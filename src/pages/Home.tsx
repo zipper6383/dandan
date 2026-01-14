@@ -50,22 +50,22 @@ const Home: React.FC = () => {
       {/* Hero Slider Area */}
       <HomeBanner />
 
-      <div className="w-container mx-auto bg-white shadow-sm -mt-2 relative z-10">
+      <div className="w-container mx-auto bg-white shadow-sm -mt-2 relative z-10 px-3 md:px-6">
         <NoticeBar />
 
-        <div className="flex flex-col md:flex-row gap-8 px-6 pb-6">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-8 pb-6">
           {/* Left Column: News Tabs */}
-          <div className="flex-[2]">
-            <div className="flex items-center justify-between border-b border-borderGray mb-6">
-              <h2 className="text-[18px] font-bold text-textMain pb-2 border-b-2 border-primary">
+          <div className="flex-1 md:flex-[2]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-borderGray mb-4 md:mb-6 gap-2">
+              <h2 className="text-base md:text-lg font-bold text-textMain pb-2 border-b-2 border-primary">
                 慈善新闻
               </h2>
-              <div className="flex gap-4">
+              <div className="flex gap-2 md:gap-4 flex-wrap">
                 {newsCategories.map((cat) => (
                   <button
                     key={cat.id}
                     onMouseEnter={() => setActiveNewsTab(cat.slug)}
-                    className={`px-4 py-1 rounded-full text-sm transition-all ${activeNewsTab === cat.slug ? 'bg-primary text-white shadow-md' : 'bg-white text-textSub hover:bg-gray-100'}`}
+                    className={`px-3 md:px-4 py-1 rounded-full text-xs md:text-sm transition-all ${activeNewsTab === cat.slug ? 'bg-primary text-white shadow-md' : 'bg-white text-textSub hover:bg-gray-100'}`}
                   >
                     {cat.name}
                   </button>
@@ -73,11 +73,11 @@ const Home: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 min-h-[300px]">
+            <div className="grid grid-cols-1 gap-4 md:gap-6 min-h-[300px]">
               {displayNews.length > 0 ? (
                 displayNews.map((news) => (
-                  <div key={news.id} className="flex gap-4 group cursor-pointer">
-                    <div className="w-48 h-32 shrink-0 overflow-hidden rounded relative">
+                  <div key={news.id} className="flex gap-3 md:gap-4 group cursor-pointer">
+                    <div className="w-32 h-24 sm:w-40 sm:h-28 md:w-48 md:h-32 shrink-0 overflow-hidden rounded relative">
                       <img
                         src={news.image}
                         alt={news.title}
@@ -85,15 +85,15 @@ const Home: React.FC = () => {
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
                     </div>
-                    <div>
-                      <h3 className="font-bold text-lg mb-2 text-textMain group-hover:text-primary transition-colors">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-bold text-sm md:text-lg mb-1 md:mb-2 text-textMain group-hover:text-primary transition-colors line-clamp-2">
                         <Link to={`/news/detail/${news.id}`}>{news.title}</Link>
                       </h3>
-                      <p className="text-textSub text-sm line-clamp-2 mb-2 group-hover:text-textMain">
+                      <p className="text-textSub text-xs md:text-sm line-clamp-2 mb-1 md:mb-2 group-hover:text-textMain hidden sm:block">
                         {news.summary}
                       </p>
-                      <span className="text-xs text-textLight bg-bgBlock px-2 py-1 rounded">
-                        {news.date} | 来源: {news.source}
+                      <span className="text-xs text-textLight bg-bgBlock px-2 py-1 rounded inline-block">
+                        {news.date.split(' ')[0]} | {news.source}
                       </span>
                     </div>
                   </div>
@@ -105,7 +105,7 @@ const Home: React.FC = () => {
             <div className="mt-4 text-right">
               <Link
                 to={`/news/${activeNewsTab}`}
-                className="text-sm text-linkRed hover:text-hoverRed hover:underline flex items-center justify-end gap-1"
+                className="text-xs md:text-sm text-linkRed hover:text-hoverRed hover:underline flex items-center justify-end gap-1"
               >
                 查看更多 <span className="text-xs">▶</span>
               </Link>
@@ -114,21 +114,21 @@ const Home: React.FC = () => {
 
           {/* Right Column: Latest Projects */}
           <div className="flex-1">
-            <div className="flex items-center justify-between border-b-2 border-borderGray mb-6">
-              <h2 className="text-xl font-bold text-textMain pb-2 border-b-4 border-primary">
+            <div className="flex items-center justify-between border-b-2 border-borderGray mb-4 md:mb-6">
+              <h2 className="text-base md:text-xl font-bold text-textMain pb-2 border-b-4 border-primary">
                 最新项目
               </h2>
               <Link to="/projects" className="text-xs text-textSub hover:text-primary">
                 更多 &gt;
               </Link>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {projects.slice(0, 3).map((project) => (
                 <div
                   key={project.id}
                   className="border border-borderGray p-2 hover:shadow-lg transition-all duration-300 rounded group"
                 >
-                  <div className="h-32 overflow-hidden mb-2 relative rounded-sm">
+                  <div className="h-28 md:h-32 overflow-hidden mb-2 relative rounded-sm">
                     <Link to={`/projects/${project.id}`}>
                       <img
                         src={project.image}
@@ -137,7 +137,7 @@ const Home: React.FC = () => {
                       />
                     </Link>
                   </div>
-                  <h4 className="font-bold text-sm mb-1 truncate text-textMain group-hover:text-primary transition-colors">
+                  <h4 className="font-bold text-xs md:text-sm mb-1 truncate text-textMain group-hover:text-primary transition-colors">
                     <Link to={`/projects/${project.id}`}>{project.title}</Link>
                   </h4>
                   <div className="text-xs text-textSub flex justify-between items-center">
@@ -161,19 +161,19 @@ const Home: React.FC = () => {
         </div>
 
         {/* Charity Projects Section */}
-        <div className="mt-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-textMain border-l-4 border-primary pl-4">
+        <div className="mt-8 md:mt-12 px-3 md:px-0">
+          <div className="flex items-center justify-between mb-4 md:mb-6">
+            <h2 className="text-lg md:text-2xl font-bold text-textMain border-l-4 border-primary pl-3 md:pl-4">
               慈善项目
             </h2>
             <Link
               to="/projects"
-              className="text-sm text-linkRed hover:text-hoverRed hover:underline"
+              className="text-xs md:text-sm text-linkRed hover:text-hoverRed hover:underline"
             >
               查看更多 &gt;&gt;
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {projects.slice(0, 3).map((proj) => (
               <Card
                 key={proj.id}
@@ -200,7 +200,7 @@ const Home: React.FC = () => {
                   </span>
                   <Link
                     to={`/projects/${proj.id}`}
-                    className="bg-primary text-white text-sm px-4 py-1.5 rounded hover:bg-secondary transition-colors shadow-md hover:shadow-lg transform active:scale-95"
+                    className="bg-primary text-white text-xs md:text-sm px-3 md:px-4 py-1.5 rounded hover:bg-secondary transition-colors shadow-md hover:shadow-lg transform active:scale-95"
                   >
                     我要捐款
                   </Link>
@@ -211,33 +211,36 @@ const Home: React.FC = () => {
         </div>
 
         {/* Funds Section */}
-        <div className="mt-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-textMain border-l-4 border-primary pl-4">
+        <div className="mt-8 md:mt-12 px-3 md:px-0">
+          <div className="flex items-center justify-between mb-4 md:mb-6">
+            <h2 className="text-lg md:text-2xl font-bold text-textMain border-l-4 border-primary pl-3 md:pl-4">
               公益基金
             </h2>
-            <Link to="/funds" className="text-sm text-linkRed hover:text-hoverRed hover:underline">
+            <Link
+              to="/funds"
+              className="text-xs md:text-sm text-linkRed hover:text-hoverRed hover:underline"
+            >
               查看更多 &gt;&gt;
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
             {FUNDS.map((fund) => (
               <div
                 key={fund.id}
                 className="border border-borderGray p-2 hover:shadow-xl transition-all duration-300 group relative rounded bg-white"
               >
-                <div className="overflow-hidden h-40 mb-3 rounded-sm">
+                <div className="overflow-hidden h-32 md:h-40 mb-2 md:mb-3 rounded-sm">
                   <img
                     src={fund.image}
                     alt={fund.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                <h4 className="font-bold text-textMain mb-2 text-sm h-10 overflow-hidden group-hover:text-primary transition-colors">
+                <h4 className="font-bold text-textMain mb-2 text-xs md:text-sm h-8 md:h-10 overflow-hidden group-hover:text-primary transition-colors line-clamp-2">
                   {fund.title}
                 </h4>
                 <div className="text-xs text-textSub space-y-1">
-                  <p>冠名人: {fund.sponsor}</p>
+                  <p className="truncate">冠名人: {fund.sponsor}</p>
                   <p>
                     已捐善款:{' '}
                     <span className="text-accent font-bold">￥{fund.raised.toLocaleString()}</span>
@@ -245,7 +248,7 @@ const Home: React.FC = () => {
                 </div>
                 <Link
                   to={`/funds/${fund.id}`}
-                  className="w-full mt-3 bg-white border border-primary text-primary text-sm py-1 hover:bg-primary hover:text-white transition-colors rounded-sm block text-center"
+                  className="w-full mt-2 md:mt-3 bg-white border border-primary text-primary text-xs md:text-sm py-1 hover:bg-primary hover:text-white transition-colors rounded-sm block text-center"
                 >
                   立即捐款
                 </Link>

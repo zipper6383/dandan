@@ -24,57 +24,51 @@ const Header: React.FC = memo(() => {
 
   return (
     <header className="w-full bg-white">
-      {/* Top Bar - Static Text, No Marquee */}
+      {/* Top Bar - Show auth links on mobile, full bar on desktop */}
       <div className="w-full border-b border-gray-100 bg-white">
-        <div className="w-container mx-auto flex justify-between items-center h-[40px] px-0">
-          <div className="text-textSub text-[14px]">您好，欢迎来到长安慈善会！！！</div>
-          <div className="text-textSub text-[14px] flex gap-2 items-center">
+        <div className="w-container mx-auto flex justify-between items-center h-[40px]">
+          {/* Welcome text - hidden on mobile */}
+          <div className="text-textSub text-sm hidden md:block">您好，欢迎来到长安慈善会！！！</div>
+
+          {/* Auth links - always visible with proper padding */}
+          <div className="text-textSub text-xs md:text-sm flex gap-2 items-center ml-auto pr-3 md:pr-0">
             {isAuthenticated && user ? (
               <>
                 <span className="text-gray-900">欢迎, {user.username}</span>
                 <span className="text-gray-300">|</span>
                 {user.role === 'admin' && (
-                  <Link to="/admin" className="hover:text-primary transition-colors">
+                  <Link to="/admin" className="hover:text-primary transition-colors py-2 px-1">
                     管理后台
                   </Link>
                 )}
                 {user.role === 'admin' && <span className="text-gray-300">|</span>}
-                <button onClick={logout} className="hover:text-primary transition-colors">
+                <button onClick={logout} className="hover:text-primary transition-colors py-2 px-1">
                   退出
                 </button>
               </>
             ) : (
               <>
-                <Link to="/login" className="hover:text-primary transition-colors">
+                <Link to="/login" className="hover:text-primary transition-colors py-2 px-1">
                   登录
                 </Link>
                 <span>|</span>
-                <Link to="/register" className="hover:text-primary transition-colors">
+                <Link to="/register" className="hover:text-primary transition-colors py-2 px-1">
                   注册
                 </Link>
               </>
             )}
-            <a href="#" className="hidden">
-              会员中心
-            </a>
           </div>
         </div>
       </div>
 
-      {/* Banner Area - Background Image Approach */}
-      {/* Banner Area - Background Image Approach */}
-      <div className="w-full">
+      {/* Banner Area - Hidden on mobile, shown on desktop */}
+      <div className="w-full hidden md:block">
         <div className="w-full relative" style={{ height: `${UI_CONFIG.HEADER_HEIGHT}px` }}>
           <img
             src="/images/changan.png"
             alt="Header Banner"
             className="w-full h-full object-fill"
           />
-          <div className="absolute top-0 right-0 w-full h-full pointer-events-none">
-            {/* Overlay or interactive elements if needed */}
-          </div>
-          {/* Search Bar Placeholder (Legacy had one, if needed) */}
-          {/* <div className="absolute right-0 top-10">...</div> */}
         </div>
       </div>
 
