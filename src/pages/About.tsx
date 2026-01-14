@@ -185,15 +185,7 @@ const About: React.FC = () => {
               </ul>
             </div>
 
-            {/* QR Code Section */}
-            <div className="p-4 text-center">
-              <img
-                src="https://res-img.n.gongyibao.cn/uploads/1dbdc970-d95e-45a8-859b-86e4e9abe89e/20210825/248ac00189d845b09a8470fd7cf8e806.png"
-                alt="西安市慈善会公众号"
-                className="w-40 h-40 mx-auto mb-2 border border-gray-200 p-1"
-              />
-              <p className="text-sm font-bold text-gray-800 tracking-wider">西安市慈善会</p>
-            </div>
+
           </div>
 
           {/* Right Main Content */}

@@ -24,9 +24,10 @@ const Projects: React.FC = () => {
         {/* Banner */}
         {/* Banner */}
         <div
-          className="w-full h-[220px] bg-gray-200 mb-8 flex items-center justify-center bg-cover bg-center"
+          className="w-full h-[220px] bg-gray-200 mb-8 flex items-center justify-center bg-center"
           style={{
-            backgroundImage: `url('${config.projectsBanner || 'https://picsum.photos/1200/400'}')`,
+            backgroundImage: `url('${config.projectsBanner || '/images/changan.png'}')`,
+            backgroundSize: '100% 100%',
           }}
         >
           <h1 className="text-4xl text-white font-bold drop-shadow-md">慈善项目</h1>

@@ -30,7 +30,7 @@ export const HomeBanner: React.FC = () => {
             <img
               key={index}
               src={src}
-              className="w-full h-full object-cover flex-shrink-0"
+              className="w-full h-full object-fill flex-shrink-0"
               alt={`Slider ${index + 1}`}
             />
           ))}

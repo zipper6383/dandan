@@ -69,6 +69,10 @@ const Settings: React.FC = () => {
         {/* Header Settings */}
         <section className="bg-white p-6 rounded shadow-sm">
           <h2 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">顶部 Header 设置</h2>
+          <div className="bg-blue-50 border border-blue-200 p-3 rounded text-xs text-blue-800 mb-4">
+            <strong>📝 一致性说明：</strong>
+            所有页面的 Banner 图片均采用“拉伸填充”模式，即图片会自动拉伸以完全填充容器尺寸，不保持原始比例。这确保了所有设备上的一致显示效果。
+          </div>
           <div className="grid grid-cols-1 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -80,7 +84,7 @@ const Settings: React.FC = () => {
                 placeholder="https://..."
               />
               <p className="text-xs text-gray-400 mt-1">
-                建议尺寸: 宽度≥1200px，高度350-400px（最大显示高度: 350px，宽度自适应100%）
+                建议尺寸: 宽度≥1200px，高度350-400px（图片将自动拉伸填充容器，不保持原比例）
               </p>
             </div>
             <div>
@@ -90,8 +94,11 @@ const Settings: React.FC = () => {
               <input
                 {...register('projectsBanner')}
                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-primary"
-                placeholder="https://..."
+                placeholder="https://... 或 /images/changan.png"
               />
+              <p className="text-xs text-gray-400 mt-1">
+                建议尺寸: 高度220px（图片将自动拉伸填充容器，不保持原比例）。留空则使用默认图片。
+              </p>
             </div>
           </div>
         </section>

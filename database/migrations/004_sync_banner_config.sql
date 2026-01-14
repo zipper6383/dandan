@@ -1,0 +1,151 @@
+-- Migration 004: Synchronize Banner Configuration and Update Site Settings
+-- This migration updates the database to reflect consistent banner behavior
+-- and ensures all site configuration is properly synchronized
+
+-- 1. Update site_configs table to include projectsBanner field
+ALTER TABLE site_configs ADD COLUMN IF NOT EXISTS projects_banner TEXT;
+
+-- 2. Update the existing configuration with consistent banner settings
+UPDATE site_configs SET 
+    header_image = '/images/changan.png',
+    projects_banner = '/images/changan.png',
+    banners = '["https://res-img.n.gongyibao.cn/uploads/1dbdc970-d95e-45a8-859b-86e4e9abe89e/20240506/96b897d2aff44edbb2441f5de3146b68.jpg", "/images/changan.png", "https://picsum.photos/1200/400?random=102"]',
+    notices = '[
+        {"id": "1", "content": "长安仁爱慈善基金会郑重声明：谨防诈骗", "link": "/news/1", "icon": "📢"},
+        {"id": "2", "content": "热烈庆祝长安仁爱慈善基金会持续运营超过25周年", "link": "/about", "icon": "📢"},
+        {"id": "3", "content": "慈善帮扶解难忧，锦旗回馈话初心", "link": "/news/2", "icon": "📢"}
+    ]',
+    footer_info = '{
+        "address": "陕西省西安市莲湖区长安文化遗产大厦五层",
+        "phone": "029-86785588",
+        "email": "contact@changanrenai.org.cn",
+        "bankName": "中国银行西安高新支行",
+        "bankAccount": "1234 5678 9012 3456",
+        "bankUnit": "长安仁爱慈善基金会",
+        "techSupport": "长安仁爱慈善基金会技术团队"
+    }',
+    base_stats = '{
+        "raised": 542000000,
+        "distributed": 300000000,
+        "donors": 1250000,
+        "projects": 500,
+        "volunteers": 8500
+    }',
+    updated_at = CURRENT_TIMESTAMP
+WHERE id = 1;
+
+-- 3. Insert default configuration if it doesn't exist
+INSERT INTO site_configs (
+    id, 
+    header_image, 
+    projects_banner,
+    banners, 
+    notices, 
+    footer_info, 
+    base_stats,
+    updated_at
+) 
+SELECT 
+    1,
+    '/images/changan.png',
+    '/images/changan.png',
+    '["https://res-img.n.gongyibao.cn/uploads/1dbdc970-d95e-45a8-859b-86e4e9abe89e/20240506/96b897d2aff44edbb2441f5de3146b68.jpg", "/images/changan.png", "https://picsum.photos/1200/400?random=102"]',
+    '[
+        {"id": "1", "content": "长安仁爱慈善基金会郑重声明：谨防诈骗", "link": "/news/1", "icon": "📢"},
+        {"id": "2", "content": "热烈庆祝长安仁爱慈善基金会持续运营超过25周年", "link": "/about", "icon": "📢"},
+        {"id": "3", "content": "慈善帮扶解难忧，锦旗回馈话初心", "link": "/news/2", "icon": "📢"}
+    ]',
+    '{
+        "address": "陕西省西安市莲湖区长安文化遗产大厦五层",
+        "phone": "029-86785588",
+        "email": "contact@changanrenai.org.cn",
+        "bankName": "中国银行西安高新支行",
+        "bankAccount": "1234 5678 9012 3456",
+        "bankUnit": "长安仁爱慈善基金会",
+        "techSupport": "长安仁爱慈善基金会技术团队"
+    }',
+    '{
+        "raised": 542000000,
+        "distributed": 300000000,
+        "donors": 1250000,
+        "projects": 500,
+        "volunteers": 8500
+    }',
+    CURRENT_TIMESTAMP
+WHERE NOT EXISTS (SELECT 1 FROM site_configs WHERE id = 1);
+
+-- 4. Update projects table to ensure consistent data
+UPDATE projects SET 
+    image_url = COALESCE(image_url, 'https://picsum.photos/400/300?random=' || id::text),
+    updated_at = CURRENT_TIMESTAMP
+WHERE image_url IS NULL OR image_url = '';
+
+-- 5. Update news table to ensure consistent data
+UPDATE news SET 
+    image_url = COALESCE(image_url, 'https://picsum.photos/400/300?random=' || (id + 100)::text)
+WHERE image_url IS NULL OR image_url = '';
+
+-- 6. Add qualifications and donation QRs configuration
+ALTER TABLE site_configs ADD COLUMN IF NOT EXISTS qualifications JSONB DEFAULT '{}';
+ALTER TABLE site_configs ADD COLUMN IF NOT EXISTS donation_qrs JSONB DEFAULT '{}';
+
+-- Update with qualification and donation QR configuration
+UPDATE site_configs SET 
+    qualifications = '{
+        "cert1": "/images/cert_1.jpg",
+        "title1": "社会团体登记证书",
+        "cert2": "/images/cert_2.jpg",
+        "title2": "公募资格证书"
+    }',
+    donation_qrs = '{
+        "qr1": "/images/donation_qrs.png",
+        "title1": "微信扫码捐赠",
+        "qr2": "/images/donation_qrs.png",
+        "title2": "支付宝扫码捐赠"
+    }'
+WHERE id = 1;
+
+-- 7. Create index for better performance
+CREATE INDEX IF NOT EXISTS idx_site_configs_updated_at ON site_configs(updated_at);
+
+-- 8. Update navigation configuration to be consistent
+UPDATE site_config SET value = '[
+  {"id":"home","label":"首页","path":"/"},
+  {"id":"info","label":"信息公开","path":"/info","children":[
+    {"id":"i1","label":"网络资料下载","path":"/info/download"},
+    {"id":"i2","label":"财务工作报告","path":"/info/financial"},
+    {"id":"i3","label":"年度工作报告","path":"/info/annual"},
+    {"id":"i4","label":"收支明细","path":"/info/transactions"}
+  ]},
+  {"id":"news","label":"新闻中心","path":"/news","children":[
+    {"id":"n1","label":"慈善资讯","path":"/news/charity"},
+    {"id":"n2","label":"媒体报道","path":"/news/media"},
+    {"id":"n3","label":"区县动态","path":"/news/district"}
+  ]},
+  {"id":"projects","label":"慈善项目","path":"/projects"},
+  {"id":"funds","label":"公益基金","path":"/funds"},
+  {"id":"volunteer","label":"志愿服务","path":"/volunteer"},
+  {"id":"about","label":"机构介绍","path":"/about"}
+]' WHERE key = 'navigation';
+
+-- 9. Update footer configuration to be consistent
+UPDATE site_config SET value = '{
+  "address": "陕西省西安市莲湖区长安文化遗产大厦五层",
+  "phone": "029-86785588",
+  "email": "contact@changanrenai.org.cn",
+  "bankName": "中国银行西安高新支行",
+  "bankAccount": "1234 5678 9012 3456",
+  "bankUnit": "长安仁爱慈善基金会",
+  "techSupport": "长安仁爱慈善基金会技术团队"
+}' WHERE key = 'footer';
+
+-- 10. Update stats configuration
+UPDATE site_config SET value = '{
+  "raised": 542000000,
+  "distributed": 300000000,
+  "donors": 1250000,
+  "projects": 500,
+  "volunteers": 8500
+}' WHERE key = 'stats';
+
+COMMIT;

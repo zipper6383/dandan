@@ -8,7 +8,7 @@ import { SiteConfigProvider } from './contexts/SiteConfigContext';
 import AdminLayout from './components/Layout/AdminLayout';
 import Footer from './components/Layout/Footer';
 import Header from './components/Layout/Header';
-import { RightSidebar } from './components/Layout/RightSidebar';
+
 
 // Lazy Load Pages - Public
 const Home = React.lazy(() => import('./pages/Home'));
@@ -112,8 +112,7 @@ const PublicLayout: React.FC = () => {
         </Suspense>
       </main>
       <Footer />
-      {/* Fixed Right Sidebar */}
-      <RightSidebar />
+
     </div>
   );
 };
