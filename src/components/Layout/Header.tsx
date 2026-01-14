@@ -27,7 +27,7 @@ const Header: React.FC = memo(() => {
       {/* Top Bar - Static Text, No Marquee */}
       <div className="w-full border-b border-gray-100 bg-white">
         <div className="w-container mx-auto flex justify-between items-center h-[40px] px-0">
-          <div className="text-textSub text-[14px]">您好，欢迎来到西安市慈善会！！！</div>
+          <div className="text-textSub text-[14px]">您好，欢迎来到长安慈善会！！！</div>
           <div className="text-textSub text-[14px] flex gap-2 items-center">
             {isAuthenticated && user ? (
               <>

@@ -176,7 +176,7 @@ const FundManager: React.FC = () => {
                 <input
                   {...register('title', { required: '基金名称不能为空' })}
                   className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-primary"
-                  placeholder="例如：西安慈善微基金"
+                  placeholder="例如：长安慈善微基金"
                 />
                 {errors.title && <span className="text-red-500 text-xs">请输入基金名称</span>}
               </div>

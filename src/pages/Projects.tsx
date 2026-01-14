@@ -26,7 +26,7 @@ const Projects: React.FC = () => {
         <div
           className="w-full h-[220px] bg-gray-200 mb-8 flex items-center justify-center bg-center"
           style={{
-            backgroundImage: `url('${config.projectsBanner || '/images/changan.png'}')`,
+            backgroundImage: `url('/images/changan.png')`,
             backgroundSize: '100% 100%',
           }}
         >
