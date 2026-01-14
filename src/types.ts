@@ -193,10 +193,22 @@ export interface SiteConfig {
     cert2: string; // Public Fundraising Qualification Certificate
     title2: string;
   };
+  paymentMethods?: {
+    alipay: {
+      name: string;
+      account: string;
+      icon?: string;
+    };
+    wechat: {
+      name: string;
+      account: string;
+      icon?: string;
+    };
+  };
   donationQRs?: {
-    qr1: string;
-    title1: string;
-    qr2: string;
-    title2: string;
+    qr1?: string;
+    title1?: string;
+    qr2?: string;
+    title2?: string;
   };
 }

@@ -231,45 +231,131 @@ const Settings: React.FC = () => {
           </div>
         </section>
 
-        {/* Donation QR Settings */}
-        <section className="bg-white p-6 rounded shadow-sm border-2 border-red-50">
-          <h2 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">捐赠二维码设置</h2>
+        {/* Electronic Payment Settings */}
+        <section className="bg-white p-6 rounded shadow-sm border-2 border-green-50">
+          <h2 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">电子支付方式设置</h2>
+          <div className="bg-green-50 border border-green-200 p-3 rounded text-xs text-green-800 mb-4">
+            <strong>📝 说明：</strong>
+            设置支付宝和微信的捐赠账户信息。可以上传自定义图标或使用默认文字显示。
+          </div>
+          
+          {/* Quick Actions */}
+          <div className="bg-yellow-50 border border-yellow-200 p-3 rounded mb-4">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-yellow-800">🚀 快速操作</span>
+              <button
+                type="button"
+                onClick={() => {
+                  // Clear both icon fields
+                  const form = document.querySelector('form');
+                  const alipayIcon = form?.querySelector('input[name="paymentMethods.alipay.icon"]') as HTMLInputElement;
+                  const wechatIcon = form?.querySelector('input[name="paymentMethods.wechat.icon"]') as HTMLInputElement;
+                  if (alipayIcon) alipayIcon.value = '';
+                  if (wechatIcon) wechatIcon.value = '';
+                }}
+                className="text-xs bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+              >
+                清除所有图片 (Show Text Only)
+              </button>
+            </div>
+          </div>
+          
+          {/* Preview Section */}
+          <div className="bg-gray-50 border border-gray-200 p-4 rounded mb-6">
+            <h4 className="text-sm font-semibold text-gray-700 mb-3">👀 预览效果 Preview (Scale 1:5)</h4>
+            <div className="flex justify-center gap-4 items-start">
+              {/* Alipay Preview - Scaled down */}
+              <div className="flex flex-col items-center">
+                <div className="w-[60px] h-[80px] bg-blue-500 rounded flex items-center justify-center mb-2 overflow-hidden">
+                  <span className="text-white font-bold text-xs">支付宝</span>
+                </div>
+                <p className="text-xs text-gray-600">支付宝转账</p>
+              </div>
+              
+              {/* WeChat Preview - Scaled down */}
+              <div className="flex flex-col items-center">
+                <div className="w-[60px] h-[80px] bg-green-500 rounded flex items-center justify-center mb-2 overflow-hidden">
+                  <span className="text-white font-bold text-xs">微信</span>
+                </div>
+                <p className="text-xs text-gray-600">微信转账</p>
+              </div>
+            </div>
+            <p className="text-xs text-gray-500 text-center mt-3">
+              ℹ️ 实际尺寸: 300x400px | 如果设置了图标链接，将显示图片而非文字
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
-              <h3 className="font-semibold text-gray-700">二维码 1 (默认显示)</h3>
+              <h3 className="font-semibold text-gray-700">支付宝账户</h3>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">图片链接</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">账户名称</label>
                 <input
-                  {...register('donationQRs.qr1')}
+                  {...register('paymentMethods.alipay.name')}
                   className="w-full border px-3 py-2 rounded focus:outline-none focus:border-primary"
-                  placeholder="https://..."
+                  placeholder="长安仁爱慈善基金会"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">标题文本</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">账户号码</label>
                 <input
-                  {...register('donationQRs.title1')}
+                  {...register('paymentMethods.alipay.account')}
                   className="w-full border px-3 py-2 rounded focus:outline-none focus:border-primary"
+                  placeholder="支付宝账户号"
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">支付宝图标</label>
+                <input
+                  {...register('paymentMethods.alipay.icon')}
+                  className="w-full border px-3 py-2 rounded focus:outline-none focus:border-primary"
+                  placeholder="https://... 或 /images/alipay-icon.png"
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  建议尺寸: 300x400px, 支持 PNG/JPG/SVG 格式
+                </p>
+                <p className="text-xs text-red-500 mt-1">
+                  ⚠️ 注意：必须是直接链接到图片文件，不是网页链接
+                </p>
+                <p className="text-xs text-green-600 mt-1">
+                  ✅ 正确格式: https://example.com/image.png
+                </p>
+                <p className="text-xs text-red-500 mt-1">
+                  ⚠️ 注意：必须是直接链接到图片文件，不是网页链接
+                </p>
+                <p className="text-xs text-green-600 mt-1">
+                  ✅ 正确格式: https://example.com/image.png
+                </p>
               </div>
             </div>
 
             <div className="space-y-4">
-              <h3 className="font-semibold text-gray-700">二维码 2 (可选)</h3>
+              <h3 className="font-semibold text-gray-700">微信账户</h3>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">图片链接</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">账户名称</label>
                 <input
-                  {...register('donationQRs.qr2')}
+                  {...register('paymentMethods.wechat.name')}
                   className="w-full border px-3 py-2 rounded focus:outline-none focus:border-primary"
-                  placeholder="https://..."
+                  placeholder="长安仁爱慈善基金会"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">标题文本</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">微信号</label>
                 <input
-                  {...register('donationQRs.title2')}
+                  {...register('paymentMethods.wechat.account')}
                   className="w-full border px-3 py-2 rounded focus:outline-none focus:border-primary"
+                  placeholder="微信号或手机号"
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">微信图标</label>
+                <input
+                  {...register('paymentMethods.wechat.icon')}
+                  className="w-full border px-3 py-2 rounded focus:outline-none focus:border-primary"
+                  placeholder="https://... 或 /images/wechat-icon.png"
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  建议尺寸: 300x400px, 支持 PNG/JPG/SVG 格式
+                </p>
               </div>
             </div>
           </div>

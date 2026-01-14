@@ -66,7 +66,8 @@ export const updateSiteConfig = async (req: Request, res: Response) => {
       'headerImage',
       'navigation',
       'qualifications',
-      'donationQRs',
+    'paymentMethods',
+  
       'projectsBanner',
     ];
     for (const key of keys) {

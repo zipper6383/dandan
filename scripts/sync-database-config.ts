@@ -42,12 +42,19 @@ const UPDATED_CONFIG = {
         cert2: "/images/cert_2.jpg",
         title2: "公募资格证书"
     },
-    donationQRs: {
-        qr1: "/images/donation_qrs.png",
-        title1: "微信扫码捐赠",
-        qr2: "/images/donation_qrs.png",
-        title2: "支付宝扫码捐赠"
-    }
+    paymentMethods: {
+        alipay: {
+            name: "长安仁爱慈善基金会",
+            account: "请联系我们获取",
+            icon: ""
+        },
+        wechat: {
+            name: "长安仁爱慈善基金会",
+            account: "请联系我们获取",
+            icon: ""
+        }
+    },
+
 };
 
 async function syncDatabaseConfig() {
@@ -62,7 +69,7 @@ async function syncDatabaseConfig() {
         await sql`
             ALTER TABLE site_configs ADD COLUMN IF NOT EXISTS projects_banner TEXT;
             ALTER TABLE site_configs ADD COLUMN IF NOT EXISTS qualifications JSONB DEFAULT '{}';
-            ALTER TABLE site_configs ADD COLUMN IF NOT EXISTS donation_qrs JSONB DEFAULT '{}';
+            ALTER TABLE site_configs ADD COLUMN IF NOT EXISTS payment_methods JSONB DEFAULT '{}';
         `;
 
         // 2. Update existing configuration or insert new one
@@ -77,7 +84,7 @@ async function syncDatabaseConfig() {
                 footer_info, 
                 base_stats,
                 qualifications,
-                donation_qrs,
+                payment_methods,
                 updated_at
             ) VALUES (
                 1,
@@ -88,7 +95,7 @@ async function syncDatabaseConfig() {
                 ${JSON.stringify(UPDATED_CONFIG.footer)},
                 ${JSON.stringify(UPDATED_CONFIG.baseStats)},
                 ${JSON.stringify(UPDATED_CONFIG.qualifications)},
-                ${JSON.stringify(UPDATED_CONFIG.donationQRs)},
+                ${JSON.stringify(UPDATED_CONFIG.paymentMethods)},
                 CURRENT_TIMESTAMP
             )
             ON CONFLICT (id) DO UPDATE SET
@@ -99,7 +106,7 @@ async function syncDatabaseConfig() {
                 footer_info = EXCLUDED.footer_info,
                 base_stats = EXCLUDED.base_stats,
                 qualifications = EXCLUDED.qualifications,
-                donation_qrs = EXCLUDED.donation_qrs,
+                payment_methods = EXCLUDED.payment_methods,
                 updated_at = CURRENT_TIMESTAMP;
         `;
 

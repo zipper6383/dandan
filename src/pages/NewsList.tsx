@@ -39,15 +39,7 @@ const NewsList: React.FC = () => {
               </ul>
             </div>
 
-            {/* QR Code Reuse */}
-            <div className="p-4 text-center bg-white hidden md:block">
-              <img
-                src="https://res-img.n.gongyibao.cn/uploads/1dbdc970-d95e-45a8-859b-86e4e9abe89e/20210825/248ac00189d845b09a8470fd7cf8e806.png"
-                alt="WeChat"
-                className="w-32 h-32 mx-auto mb-2 border border-gray-200 p-1"
-              />
-              <p className="text-xs text-gray-600">扫码关注官方微信</p>
-            </div>
+
           </div>
 
           {/* List Content */}

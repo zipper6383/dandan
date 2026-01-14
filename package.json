@@ -12,6 +12,7 @@
     "seed:nav": "tsx scripts/seed-navigation.ts",
     "db:setup": "npm run migrate && npm run seed:nav",
     "db:sync": "tsx scripts/sync-database-config.ts",
+    "remove:qr": "tsx scripts/remove-qr-codes.ts",
     "start": "tsx server/index.ts",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
