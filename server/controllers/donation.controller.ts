@@ -22,9 +22,13 @@ export const getDonations = async (req: Request, res: Response) => {
 
 export const createDonation = async (req: Request, res: Response) => {
   const { donorName, amount, message, projectId, paymentMethod } = req.body;
+  const client = await pool.connect();
+
   try {
+    await client.query('BEGIN');
+
     // 1. Insert Donation
-    const insertResult = await pool.query(
+    const insertResult = await client.query(
       `
       INSERT INTO donations (donor_name, amount, message, project_id, payment_method, status)
       VALUES ($1, $2, $3, $4, $5, 'completed')
@@ -37,7 +41,7 @@ export const createDonation = async (req: Request, res: Response) => {
 
     // 2. Update Project stats if projectId is present
     if (projectId) {
-      await pool.query(
+      await client.query(
         `
         UPDATE projects
         SET raised_amount = raised_amount + $1, donor_count = donor_count + 1
@@ -48,7 +52,7 @@ export const createDonation = async (req: Request, res: Response) => {
     }
 
     // 3. Fetch full object for consistency
-    const result = await pool.query(
+    const result = await client.query(
       `
       SELECT
         d.id, d.donor_name as "donorName", d.amount, d.message,
@@ -61,9 +65,13 @@ export const createDonation = async (req: Request, res: Response) => {
       [newId]
     );
 
+    await client.query('COMMIT');
     res.json(result.rows[0]);
   } catch (error) {
+    await client.query('ROLLBACK');
     console.error('Donation error:', error);
     res.status(500).json({ error: 'Donation failed' });
+  } finally {
+    client.release();
   }
 };

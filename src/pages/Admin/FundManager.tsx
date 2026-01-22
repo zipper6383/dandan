@@ -1,6 +1,7 @@
 import { Edit, Plus, Search, Trash2, X } from 'lucide-react';
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
+import { ImageUpload } from '../../components/Shared/ImageUpload';
 import { SEO } from '../../components/Shared/SEO';
 import { useData } from '../../contexts/DataContext';
 import { Fund } from '../../types';
@@ -13,6 +14,7 @@ const FundManager: React.FC = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     setValue,
@@ -176,7 +178,7 @@ const FundManager: React.FC = () => {
                 <input
                   {...register('title', { required: '基金名称不能为空' })}
                   className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-primary"
-                  placeholder="例如：长安慈善微基金"
+                  placeholder="例如：善泽互助微基金"
                 />
                 {errors.title && <span className="text-red-500 text-xs">请输入基金名称</span>}
               </div>
@@ -206,11 +208,13 @@ const FundManager: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-1">封面图片 URL</label>
-                <input
-                  {...register('image')}
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-primary"
-                  placeholder="https://..."
+                <label className="block text-sm font-bold text-gray-700 mb-1">封面图片</label>
+                <Controller
+                  control={control}
+                  name="image"
+                  render={({ field }) => (
+                    <ImageUpload value={field.value} onChange={field.onChange} />
+                  )}
                 />
                 <p className="text-xs text-gray-400 mt-1">建议尺寸: 400x300px</p>
               </div>

@@ -1,9 +1,11 @@
 ---
 inclusion: always
 ---
+
 # Frontend Architecture & Standards
 
 ## Core Framework
+
 - **React 18.3.1**: Functional components với hooks
 - **TypeScript**: Full type safety với strict mode
 - **Vite**: Fast development server và build tool
@@ -12,6 +14,7 @@ inclusion: always
 ## UI Framework & Styling
 
 ### Tailwind CSS v4
+
 ```typescript
 // Custom Tailwind configuration
 - w-container: max-width container class
@@ -22,6 +25,7 @@ inclusion: always
 ```
 
 ### Component Design Patterns
+
 ```typescript
 // Consistent component structure
 interface ComponentProps {
@@ -32,10 +36,10 @@ interface ComponentProps {
   children?: React.ReactNode;
 }
 
-export const Component: React.FC<ComponentProps> = ({ 
-  title, 
-  className = '', 
-  children 
+export const Component: React.FC<ComponentProps> = ({
+  title,
+  className = '',
+  children
 }) => {
   return (
     <div className={`base-classes ${className}`}>
@@ -48,6 +52,7 @@ export const Component: React.FC<ComponentProps> = ({
 ## State Management Architecture
 
 ### React Context Pattern
+
 ```typescript
 // Context structure
 interface ContextType {
@@ -55,7 +60,7 @@ interface ContextType {
   data: DataType[];
   loading: boolean;
   error: string | null;
-  
+
   // Actions
   addItem: (item: DataType) => Promise<void>;
   updateItem: (item: DataType) => Promise<void>;
@@ -74,6 +79,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 ```
 
 ### Context Hierarchy
+
 ```typescript
 // App.tsx provider nesting
 <HelmetProvider>
@@ -92,12 +98,14 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 ## Component Organization
 
 ### Layout Components (`/components/Layout/`)
+
 - **Header**: Navigation với dropdown menus, authentication status
 - **Footer**: Contact info, bank details, social links
 - **AdminLayout**: Protected admin interface layout
 - **RightSidebar**: Fixed sidebar với quick actions
 
 ### Feature Components
+
 ```typescript
 // Home page components (/components/Home/)
 - HomeBanner: Carousel banner với site config integration
@@ -115,6 +123,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 ## Routing Architecture
 
 ### Lazy Loading Pattern
+
 ```typescript
 // All pages lazy loaded
 const Home = React.lazy(() => import('./pages/Home'));
@@ -129,15 +138,16 @@ const Projects = React.lazy(() => import('./pages/Projects'));
 ```
 
 ### Route Protection
+
 ```typescript
 // Admin route protection
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, user } = useAuth();
-  
+
   if (!isAuthenticated || user?.role !== 'admin') {
     return <Navigate to="/admin/login" replace />;
   }
-  
+
   return <>{children}</>;
 };
 ```
@@ -145,21 +155,27 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 ## Form Handling Standards
 
 ### React Hook Form + Zod
+
 ```typescript
 // Form validation schema
 const schema = z.object({
-  title: z.string().min(1, "标题不能为空"),
-  amount: z.number().min(0, "金额必须大于0"),
-  email: z.string().email("邮箱格式不正确")
+  title: z.string().min(1, '标题不能为空'),
+  amount: z.number().min(0, '金额必须大于0'),
+  email: z.string().email('邮箱格式不正确'),
 });
 
 // Form component pattern
-const { register, handleSubmit, formState: { errors } } = useForm({
-  resolver: zodResolver(schema)
+const {
+  register,
+  handleSubmit,
+  formState: { errors },
+} = useForm({
+  resolver: zodResolver(schema),
 });
 ```
 
 ### Form State Management
+
 ```typescript
 // Consistent form state pattern
 interface FormState<T> {
@@ -173,18 +189,22 @@ interface FormState<T> {
 ## API Integration Patterns
 
 ### Centralized API Client
+
 ```typescript
 // services/api.ts structure
 export const ProjectsAPI = {
   getAll: () => fetchAPI<Project[]>('/projects'),
   getById: (id: string) => fetchAPI<Project>(`/projects/${id}`),
-  create: (data: ProjectFormData) => fetchAPI<Project>('/projects', { method: 'POST', body: JSON.stringify(data) }),
-  update: (id: string, data: Partial<Project>) => fetchAPI<Project>(`/projects/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
-  delete: (id: string) => fetchAPI<void>(`/projects/${id}`, { method: 'DELETE' })
+  create: (data: ProjectFormData) =>
+    fetchAPI<Project>('/projects', { method: 'POST', body: JSON.stringify(data) }),
+  update: (id: string, data: Partial<Project>) =>
+    fetchAPI<Project>(`/projects/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  delete: (id: string) => fetchAPI<void>(`/projects/${id}`, { method: 'DELETE' }),
 };
 ```
 
 ### Error Handling
+
 ```typescript
 // Consistent error handling
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
@@ -200,15 +220,17 @@ async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> 
 ## Performance Optimization
 
 ### Code Splitting
+
 - **Route-level**: All pages lazy loaded
 - **Component-level**: Heavy components lazy loaded when needed
 - **Bundle optimization**: Vite automatic code splitting
 
 ### Image Optimization
+
 ```typescript
 // Responsive image patterns
-<img 
-  src={image} 
+<img
+  src={image}
   alt={title}
   className="w-full h-48 object-cover hover:scale-110 transition-transform duration-500"
   loading="lazy"
@@ -218,22 +240,25 @@ async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> 
 ## SEO & Accessibility
 
 ### React Helmet Async
+
 ```typescript
 // Page-level SEO
 <Helmet>
-  <title>{pageTitle} - 长安仁爱慈善基金会</title>
+  <title>{pageTitle} - 龙岗区善泽民工互助会</title>
   <meta name="description" content={pageDescription} />
   <meta property="og:title" content={pageTitle} />
 </Helmet>
 ```
 
 ### Accessibility Standards
+
 - **Semantic HTML**: Proper heading hierarchy, landmarks
 - **Keyboard Navigation**: Focus management, tab order
 - **Screen Reader**: ARIA labels, alt text
 - **Color Contrast**: WCAG AA compliance
 
 ## Development Guidelines
+
 1. **Component Naming**: PascalCase cho components, camelCase cho props
 2. **File Organization**: Feature-based grouping trong components/
 3. **Type Safety**: Strict TypeScript, no `any` types

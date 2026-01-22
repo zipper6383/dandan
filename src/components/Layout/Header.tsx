@@ -28,7 +28,7 @@ const Header: React.FC = memo(() => {
       <div className="w-full border-b border-gray-100 bg-white">
         <div className="w-container mx-auto flex justify-between items-center h-[40px]">
           {/* Welcome text - hidden on mobile */}
-          <div className="text-textSub text-sm hidden md:block">您好，欢迎来到长安慈善会！！！</div>
+          <div className="text-textSub text-sm hidden md:block">您好，欢迎来到龙岗区善泽民工互助会！！！</div>
 
           {/* Auth links - always visible with proper padding */}
           <div className="text-textSub text-xs md:text-sm flex gap-2 items-center ml-auto pr-3 md:pr-0">
@@ -65,7 +65,7 @@ const Header: React.FC = memo(() => {
       <div className="w-full hidden md:block">
         <div className="w-full relative" style={{ height: `${UI_CONFIG.HEADER_HEIGHT}px` }}>
           <img
-            src="/images/changan.png"
+            src={config.headerImage || '/images/header_bg.png'}
             alt="Header Banner"
             className="w-full h-full object-fill"
           />
@@ -88,7 +88,7 @@ const Header: React.FC = memo(() => {
 
           {/* Desktop Navigation */}
           <ul className="hidden md:flex justify-end w-full">
-            {(config.navigation || NAV_ITEMS).map((item) => (
+            {(config.navigation && config.navigation.length > 0 ? config.navigation : NAV_ITEMS).map((item) => (
               <li
                 key={item.id}
                 className="relative group w-[150px] text-center"
@@ -128,7 +128,7 @@ const Header: React.FC = memo(() => {
         {hoveredMenu === 'mobile' && (
           <div className="md:hidden bg-primary w-full border-t border-secondary animate-fadeIn">
             <ul className="flex flex-col w-full">
-              {(config.navigation || NAV_ITEMS).map((item) => (
+              {(config.navigation && config.navigation.length > 0 ? config.navigation : NAV_ITEMS).map((item) => (
                 <li key={item.id} className="border-b border-secondary last:border-0">
                   <Link
                     to={item.path}

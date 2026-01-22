@@ -43,7 +43,7 @@ export interface NoticeItem {
 ```typescript
 {
   id: '1',
-  content: '长安仁爱慈善基金会郑重声明：谨防诈骗',
+  content: '龙岗区善泽民工互助会郑重声明：谨防诈骗',
   link: '/news/n1',
   icon: '📢'
 }

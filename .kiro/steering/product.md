@@ -1,34 +1,40 @@
-# Sản phẩm: Xi'an Charity Association Portal
+# Product: Longgang Shanze Mutual Aid Portal
 
-## Tổng quan
+## Overview
 
-Cổng thông tin điện tử của Hội Từ thiện Tây An - một ứng dụng web React hiện đại phục vụ hai đối tượng chính:
+A comprehensive charity organization portal serving the Longgang Shanze Mutual Aid Association. The platform provides dual interfaces for public engagement and administrative management of charitable activities.
 
-### Người dùng công cộng (Public)
+## Target Users
 
-- Xem thông tin dự án từ thiện và tiến độ quyên góp
-- Đọc tin tức, thông báo từ hội
-- Đăng ký làm tình nguyện viên
-- Tra cứu danh sách quyên góp minh bạch
-- Giả lập quyên góp trực tuyến
+### Public Users
 
-### Quản trị viên (Admin)
+- View charity projects and donation progress
+- Read news and announcements from the organization
+- Register as volunteers
+- Browse transparent donation records
+- Simulate online donations
 
-- Dashboard thống kê tổng quan
-- Quản lý dự án từ thiện (CRUD)
-- Theo dõi quyên góp và tình nguyện viên
-- Cấu hình nội dung website
+### Administrators
 
-## Đặc điểm kỹ thuật
+- Dashboard with comprehensive statistics
+- Manage charity projects (CRUD operations)
+- Track donations and volunteer applications
+- Configure website content and settings
 
-- **Responsive Design**: Tương thích mobile, tablet, desktop
-- **Real-time Updates**: Cập nhật tiến độ quyên góp tức thời
-- **Form Validation**: Sử dụng React Hook Form + Zod
-- **SEO Optimized**: React Helmet Async
-- **Database**: PostgreSQL với Neon serverless
+## Key Features
 
-## Tài khoản demo
+- **Responsive Design**: Mobile-first approach supporting all device types
+- **Real-time Updates**: Live donation progress tracking
+- **Form Validation**: React Hook Form + Zod validation
+- **SEO Optimized**: React Helmet Async integration
+- **Database**: PostgreSQL with Neon serverless hosting
 
-- URL Admin: `/admin/login`
+## Demo Access
+
+- Admin URL: `/admin/login`
 - Username: `admin`
 - Password: `admin`
+
+## Architecture
+
+Full-stack React application with Express.js backend, PostgreSQL database, and modern TypeScript implementation throughout.

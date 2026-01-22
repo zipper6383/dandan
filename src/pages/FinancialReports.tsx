@@ -43,7 +43,7 @@ const FinancialReports: React.FC = () => {
 
   return (
     <div className="bg-bgBlock py-8 min-h-screen">
-      <SEO title="财务报告" description="长安仁爱慈善基金会财务报告公开" />
+      <SEO title="财务报告" description="龙岗区善泽民工互助会财务报告公开" />
 
       <div className="w-container mx-auto">
         <div className="bg-white p-8">
@@ -152,9 +152,9 @@ const FinancialReports: React.FC = () => {
             <p className="text-textSub text-sm">
               如需了解更多财务信息或有任何疑问，请联系我们：
               <br />
-              电话：029-12345678
+              电话：0755 83942567
               <br />
-              邮箱：finance@xiancharity.org
+              邮箱：finance@shanze-longgang.org
             </p>
           </div>
         </div>

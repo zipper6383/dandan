@@ -9,7 +9,6 @@ import AdminLayout from './components/Layout/AdminLayout';
 import Footer from './components/Layout/Footer';
 import Header from './components/Layout/Header';
 
-
 // Lazy Load Pages - Public
 const Home = React.lazy(() => import('./pages/Home'));
 const Projects = React.lazy(() => import('./pages/Projects'));
@@ -30,9 +29,9 @@ const SearchResults = React.lazy(() => import('./pages/SearchResults'));
 const Login = React.lazy(() => import('./pages/Login'));
 const Register = React.lazy(() => import('./pages/Register'));
 
-// Lazy Load Pages - Admin
-const AdminLogin = React.lazy(() => import('./pages/Admin/Login'));
-const AdminDashboard = React.lazy(() => import('./pages/Admin/DashboardWithCharts'));
+import AdminLogin from './pages/Admin/Login';
+// const AdminLogin = React.lazy(() => import('./pages/Admin/Login'));
+const AdminDashboard = React.lazy(() => import('./pages/Admin/Dashboard'));
 const AdminProjectManager = React.lazy(() => import('./pages/Admin/ProjectManager'));
 const AdminNewsManager = React.lazy(() => import('./pages/Admin/NewsManager'));
 const AdminSettings = React.lazy(() => import('./pages/Admin/Settings'));
@@ -70,10 +69,14 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 // Scroll to top on route change
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const { pathname, hash, search } = useLocation();
   useEffect(() => {
+    // Only log in development mode
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Route changed: ${pathname}${search}${hash}`);
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash, search]);
   return null;
 };
 
@@ -112,7 +115,6 @@ const PublicLayout: React.FC = () => {
         </Suspense>
       </main>
       <Footer />
-
     </div>
   );
 };

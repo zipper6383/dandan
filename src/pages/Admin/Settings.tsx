@@ -13,7 +13,7 @@ const Settings: React.FC = () => {
     control,
     handleSubmit,
     reset,
-    formState: { isDirty, isSubmitSuccessful },
+    formState: { isDirty },
   } = useForm<SiteConfig>({
     defaultValues: config,
   });
@@ -24,7 +24,8 @@ const Settings: React.FC = () => {
     remove: removeBanner,
   } = useFieldArray({
     control,
-    name: 'banners' as any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    name: 'banners' as any, // Primitive array limitation in react-hook-form types
   });
 
   const {
@@ -33,7 +34,7 @@ const Settings: React.FC = () => {
     remove: removeNotice,
   } = useFieldArray({
     control,
-    name: 'notices' as any,
+    name: 'notices',
   });
 
   // Sync form with context if config changes externally or initially
@@ -71,7 +72,8 @@ const Settings: React.FC = () => {
           <h2 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">顶部 Header 设置</h2>
           <div className="bg-blue-50 border border-blue-200 p-3 rounded text-xs text-blue-800 mb-4">
             <strong>📝 一致性说明：</strong>
-            所有页面的 Banner 图片均采用“拉伸填充”模式，即图片会自动拉伸以完全填充容器尺寸，不保持原始比例。这确保了所有设备上的一致显示效果。
+            所有页面的 Banner
+            图片均采用“拉伸填充”模式，即图片会自动拉伸以完全填充容器尺寸，不保持原始比例。这确保了所有设备上的一致显示效果。
           </div>
           <div className="grid grid-cols-1 gap-4">
             <div>
@@ -94,7 +96,7 @@ const Settings: React.FC = () => {
               <input
                 {...register('projectsBanner')}
                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-primary"
-                placeholder="https://... 或 /images/changan.png"
+                placeholder="https://... 或 /logo.png"
               />
               <p className="text-xs text-gray-400 mt-1">
                 建议尺寸: 高度220px（图片将自动拉伸填充容器，不保持原比例）。留空则使用默认图片。
@@ -238,7 +240,7 @@ const Settings: React.FC = () => {
             <strong>📝 说明：</strong>
             设置支付宝和微信的捐赠账户信息。可以上传自定义图标或使用默认文字显示。
           </div>
-          
+
           {/* Quick Actions */}
           <div className="bg-yellow-50 border border-yellow-200 p-3 rounded mb-4">
             <div className="flex justify-between items-center">
@@ -248,8 +250,12 @@ const Settings: React.FC = () => {
                 onClick={() => {
                   // Clear both icon fields
                   const form = document.querySelector('form');
-                  const alipayIcon = form?.querySelector('input[name="paymentMethods.alipay.icon"]') as HTMLInputElement;
-                  const wechatIcon = form?.querySelector('input[name="paymentMethods.wechat.icon"]') as HTMLInputElement;
+                  const alipayIcon = form?.querySelector(
+                    'input[name="paymentMethods.alipay.icon"]'
+                  ) as HTMLInputElement;
+                  const wechatIcon = form?.querySelector(
+                    'input[name="paymentMethods.wechat.icon"]'
+                  ) as HTMLInputElement;
                   if (alipayIcon) alipayIcon.value = '';
                   if (wechatIcon) wechatIcon.value = '';
                 }}
@@ -259,10 +265,12 @@ const Settings: React.FC = () => {
               </button>
             </div>
           </div>
-          
+
           {/* Preview Section */}
           <div className="bg-gray-50 border border-gray-200 p-4 rounded mb-6">
-            <h4 className="text-sm font-semibold text-gray-700 mb-3">👀 预览效果 Preview (Scale 1:5)</h4>
+            <h4 className="text-sm font-semibold text-gray-700 mb-3">
+              👀 预览效果 Preview (Scale 1:5)
+            </h4>
             <div className="flex justify-center gap-4 items-start">
               {/* Alipay Preview - Scaled down */}
               <div className="flex flex-col items-center">
@@ -271,7 +279,7 @@ const Settings: React.FC = () => {
                 </div>
                 <p className="text-xs text-gray-600">支付宝转账</p>
               </div>
-              
+
               {/* WeChat Preview - Scaled down */}
               <div className="flex flex-col items-center">
                 <div className="w-[60px] h-[80px] bg-green-500 rounded flex items-center justify-center mb-2 overflow-hidden">
@@ -292,7 +300,7 @@ const Settings: React.FC = () => {
                 <input
                   {...register('paymentMethods.alipay.name')}
                   className="w-full border px-3 py-2 rounded focus:outline-none focus:border-primary"
-                  placeholder="长安仁爱慈善基金会"
+                  placeholder="龙岗区善泽民工互助会"
                 />
               </div>
               <div>
@@ -335,7 +343,7 @@ const Settings: React.FC = () => {
                 <input
                   {...register('paymentMethods.wechat.name')}
                   className="w-full border px-3 py-2 rounded focus:outline-none focus:border-primary"
-                  placeholder="长安仁爱慈善基金会"
+                  placeholder="龙岗区善泽民工互助会"
                 />
               </div>
               <div>
@@ -402,7 +410,7 @@ const Settings: React.FC = () => {
                   <div className="col-span-1">
                     <label className="block text-xs text-gray-600 mb-1">图标</label>
                     <input
-                      {...register(`notices.${index}.icon` as const)}
+                      {...register(`notices.${index}.icon`)}
                       className="w-full border border-gray-300 rounded px-2 py-2 text-center focus:outline-none focus:border-primary"
                       placeholder="📢"
                       maxLength={2}
@@ -412,7 +420,7 @@ const Settings: React.FC = () => {
                   <div className="col-span-7">
                     <label className="block text-xs text-gray-600 mb-1">通知内容 *</label>
                     <input
-                      {...register(`notices.${index}.content` as const)}
+                      {...register(`notices.${index}.content`)}
                       className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-primary"
                       placeholder="输入通知内容..."
                       required
@@ -422,7 +430,7 @@ const Settings: React.FC = () => {
                   <div className="col-span-4">
                     <label className="block text-xs text-gray-600 mb-1">跳转链接 *</label>
                     <input
-                      {...register(`notices.${index}.link` as const)}
+                      {...register(`notices.${index}.link`)}
                       className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-primary"
                       placeholder="/news/..."
                       required

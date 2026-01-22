@@ -6,58 +6,60 @@ import { NAV_ITEMS } from '../services/mockData';
 // Default values (The original hardcoded values)
 const DEFAULT_CONFIG: SiteConfig = {
   header: {
-    title: '长安仁爱慈善基金会',
+    title: '龙岗区善泽民工互助会',
     logo: '/logo.png',
   },
-  headerImage: '/images/header_bg.png',
-  banners: [
-    'https://res-img.n.gongyibao.cn/uploads/1dbdc970-d95e-45a8-859b-86e4e9abe89e/20240506/96b897d2aff44edbb2441f5de3146b68.jpg',
-    'https://picsum.photos/1200/400?random=101',
-    'https://picsum.photos/1200/400?random=102',
-  ],
-  projectsBanner:
-    'https://res-img.n.gongyibao.cn/uploads/1dbdc970-d95e-45a8-859b-86e4e9abe89e/20240516/baba08128b1845d5866db0a8ed417d1f.jpg',
+  headerImage: '/images/longgang-banner.png',
+  banners: ['/images/longgang-banner.png'],
+  projectsBanner: '/images/longgang-banner.png',
   navigation: NAV_ITEMS,
 
   notices: [
-    { id: '1', content: '长安仁爱慈善基金会郑重声明：谨防诈骗', link: '/news/n1', icon: '📢' },
+    { id: '1', content: '龙岗区善泽民工互助会郑重声明：谨防诈骗', link: '/news/n1', icon: '📢' },
     {
       id: '2',
-      content: '热烈庆祝长安仁爱慈善基金会持续运营超过25周年',
+      content: '热烈庆祝龙岗区善泽民工互助会持续运营超过25周年',
       link: '/about',
       icon: '📢',
     },
-    { id: '3', content: '慈善帮扶解难忧，锦旗回馈话初心', link: '/news/n2', icon: '📢' },
+    { id: '3', content: '守护工友权益，扶助困难群体', link: '/news/n2', icon: '📢' },
   ],
   footer: {
-    contact: '长安仁爱',
-    copyright: "2025 Chang'an Benevolence Charity Foundation",
-    address: '陕西省西安市莲湖区长安文化遗产大厦五层',
-    phone: '029-86785588',
-    email: 'info@renai-changan.org',
-    bankName: '浦发银行长安支行',
-    bankAccount: '62150178900000256',
-    bankUnit: '长安仁爱慈善基金会',
-    techSupport: '北京厚普聚益科技有限公司',
+    contact: '善泽互助会',
+    copyright: '2026 Longgang District Shanze Migrant Worker Mutual Aid Association',
+    address: '中国广东省深圳市龙岗区 · 龙岗大道务工人员综合服务大厦',
+    phone: '0755 83942567',
+    email: 'contact@shanze-longgang.org',
+    bankName: '中国建设银行深圳龙岗支行',
+    bankAccount: '6230 9183 7456 2109 852',
+    bankUnit: '龙岗区善泽民工互助会',
   },
   baseStats: {
-    raised: 542000000,
+    raised: 233100000,
     projects: 100,
-    donors: 1280000,
+    donors: 203469,
     volunteers: 5000,
   },
   qualifications: {
-    cert1:
-      'https://res-img.n.gongyibao.cn/uploads/1dbdc970-d95e-45a8-859b-86e4e9abe89e/20201210/034fb5ccc5de43a2841c71eaec6b931d.jpg',
-    title1: '慈善组织公开募捐资格证书',
-    cert2:
-      'https://res-img.n.gongyibao.cn/uploads/1dbdc970-d95e-45a8-859b-86e4e9abe89e/20201210/6c59faad9a5842adbdc543d0106afae3.jpg',
-    title2: '社会组织评估等级证书 (5A级)',
+    cert1: '/images/unified-qr.png',
+    title1: '证书',
+  },
+  paymentMethods: {
+    alipay: {
+      name: '龙岗区善泽民工互助会',
+      account: 'szmzjz@163.com',
+      icon: '/images/unified-qr.png',
+    },
+    wechat: {
+      name: '龙岗区善泽民工互助会',
+      account: 'szmzjz',
+      icon: '/images/unified-qr.png',
+    },
   },
   donationQRs: {
-    qr1: 'https://p3-pc-sign.douyinpic.com/tos-cn-i-0813/oQLAAzYNeQAgdAl777BJcfADogEvbCDGmIR9AF~tplv-dy-aweme-images:q75.webp?biz_tag=aweme_images&from=327834062&lk3s=138a59ce&s=PackSourceEnum_SEARCH&sc=image&se=false&x-expires=1770512400&x-signature=qsaCnM9OxKLz%2BSE4JYDSM7rhtyQ%3D',
+    qr1: '/images/unified-qr.png',
     title1: '微信支付',
-    qr2: 'https://p3-pc-sign.douyinpic.com/tos-cn-i-0813c001/c87a00011fcf470a800e33a4c5b39bbc~tplv-dy-aweme-images:q75.webp?biz_tag=aweme_images&from=327834062&lk3s=138a59ce&s=PackSourceEnum_SEARCH&sc=image&se=false&x-expires=1770872400&x-signature=2gy%2Fe0PZZ5zQ%2FrEwZJ%2FcWS1gIrY%3D',
+    qr2: '/images/unified-qr.png',
     title2: '支付宝支付',
   },
 };
@@ -84,7 +86,12 @@ export const SiteConfigProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         const remoteConfig = await SiteConfigAPI.getConfig();
         if (remoteConfig) {
           // Merge remote config with defaults to ensure all fields exist
-          setConfig({ ...DEFAULT_CONFIG, ...remoteConfig });
+          // Special handling for navigation to ensure it includes all default items
+          const mergedConfig = { ...DEFAULT_CONFIG, ...remoteConfig };
+          if (!remoteConfig.navigation || remoteConfig.navigation.length === 0) {
+            mergedConfig.navigation = NAV_ITEMS;
+          }
+          setConfig(mergedConfig);
         }
       } catch (error) {
         console.error('Failed to load site config from DB', error);

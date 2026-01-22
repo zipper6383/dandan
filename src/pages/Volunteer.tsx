@@ -44,14 +44,18 @@ const Volunteer: React.FC = () => {
       interest: data.interests.join(', '),
     });
 
-    console.log('Form Data Submitted:', data);
+    // Only log in development mode
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Form Data Submitted:', data);
+    }
+
     alert('提交成功！我们会尽快联系您。请在管理后台查看您的申请。');
     reset();
   };
 
   return (
     <div className="bg-white py-12 min-h-screen">
-      <SEO title="志愿服务" description="加入长安仁爱慈善基金会志愿者行列，一起传递温暖。" />
+      <SEO title="志愿服务" description="加入龙岗区善泽民工互助会志愿者行列，一起传递温暖。" />
       <div className="w-container mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-primary mb-4">加入志愿者行列</h1>
@@ -108,11 +112,15 @@ const Volunteer: React.FC = () => {
                 className={`w-full border p-2 rounded focus:outline-none focus:ring-1 focus:ring-primary ${errors.area ? 'border-red-500' : 'border-gray-300'}`}
               >
                 <option value="">请选择...</option>
-                <option value="xincheng">新城区</option>
-                <option value="beilin">碑林区</option>
-                <option value="lianhu">莲湖区</option>
-                <option value="yanta">雁塔区</option>
-                <option value="weiyang">未央区</option>
+                <option value="longcheng">龙城街道</option>
+                <option value="longgang">龙岗街道</option>
+                <option value="pinghu">平湖街道</option>
+                <option value="buji">布吉街道</option>
+                <option value="bantian">坂田街道</option>
+                <option value="henggang">横岗街道</option>
+                <option value="baolong">宝龙街道</option>
+                <option value="nanwan">南湾街道</option>
+                <option value="other">其他区域</option>
               </select>
               {errors.area && <p className="text-red-500 text-xs mt-1">{errors.area.message}</p>}
             </div>

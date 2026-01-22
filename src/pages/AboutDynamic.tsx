@@ -43,7 +43,7 @@ const AboutDynamic: React.FC = () => {
 
   return (
     <div className="bg-bgBlock py-8 min-h-screen">
-      <SEO title="关于我们" description="长安仁爱慈善基金会简介" />
+      <SEO title="关于我们" description="龙岗区善泽民工互助会简介" />
 
       <div className="w-container mx-auto">
         <div className="flex flex-col md:flex-row gap-8">
@@ -70,8 +70,6 @@ const AboutDynamic: React.FC = () => {
                 ))}
               </ul>
             </div>
-
-
           </div>
 
           {/* Main Content */}
@@ -91,7 +89,7 @@ const AboutDynamic: React.FC = () => {
 
                 {/* Share Section */}
                 <div className="mt-12 pt-8 border-t border-gray-200">
-                  <ShareButtons title={activeContent.title} description="长安仁爱慈善基金会" />
+                  <ShareButtons title={activeContent.title} description="龙岗区善泽民工互助会" />
                 </div>
               </>
             ) : (

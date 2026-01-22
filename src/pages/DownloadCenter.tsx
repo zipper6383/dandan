@@ -31,7 +31,7 @@ const DownloadCenter: React.FC = () => {
       id: 1,
       title: '2024年度财务审计报告',
       category: 'financial',
-      description: '经第三方审计机构审计的2024年度完整财务报告',
+      description: '经第三方审计机构审计的龙岗区善泽民工互助会2024年度完整财务报告',
       fileUrl: '#',
       fileSize: '2.5 MB',
       fileType: 'PDF',
@@ -42,7 +42,7 @@ const DownloadCenter: React.FC = () => {
       id: 2,
       title: '2024年度工作报告',
       category: 'annual',
-      description: '2024年度基金会工作总结及成果展示',
+      description: '2024年度互助会工作总结及成果展示',
       fileUrl: '#',
       fileSize: '5.2 MB',
       fileType: 'PDF',
@@ -75,7 +75,7 @@ const DownloadCenter: React.FC = () => {
       id: 5,
       title: '基金会章程',
       category: 'policy',
-      description: '长安仁爱慈善基金会章程（2024年修订版）',
+      description: '龙岗区善泽民工互助会章程（2024年修订版）',
       fileUrl: '#',
       fileSize: '890 KB',
       fileType: 'PDF',
@@ -126,7 +126,7 @@ const DownloadCenter: React.FC = () => {
 
   return (
     <div className="bg-bgBlock py-8 min-h-screen">
-      <SEO title="资料下载" description="长安仁爱慈善基金会相关资料下载中心" />
+      <SEO title="资料下载" description="龙岗区善泽民工互助会相关资料下载中心" />
 
       <div className="w-container mx-auto">
         <div className="bg-white p-8">
@@ -276,7 +276,7 @@ const DownloadCenter: React.FC = () => {
             <h3 className="text-lg font-bold text-textMain mb-4">下载说明</h3>
             <div className="text-sm text-textSub space-y-2">
               <p>• 所有资料均为公开文件，可免费下载使用</p>
-              <p>• 如遇下载问题，请联系我们：029-12345678</p>
+              <p>• 如遇下载问题，请联系我们：0755 83942567</p>
               <p>• 部分文件需要使用 Adobe Reader 或 Microsoft Office 打开</p>
               <p>• 资料仅供参考学习，未经授权不得用于商业用途</p>
             </div>

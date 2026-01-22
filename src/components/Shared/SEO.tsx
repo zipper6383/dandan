@@ -7,8 +7,8 @@ interface SEOProps {
 }
 
 export const SEO: React.FC<SEOProps> = ({ title, description }) => {
-  const defaultDesc = "长安仁爱慈善基金会官方网站 - 文化传承，人道救助";
-  const siteTitle = "长安仁爱慈善基金会";
+  const defaultDesc = "龙岗区善泽民工互助会 - 守护工友权益，扶助困难群体";
+  const siteTitle = "龙岗区善泽民工互助会";
 
   return (
     <Helmet>

@@ -33,7 +33,7 @@ const TransactionList: React.FC = () => {
     <div className="bg-white py-8 min-h-screen">
       <div className="w-container mx-auto">
         {/* Banner */}
-        <div className="w-full h-[180px] bg-gradient-to-r from-primary to-orange-500 mb-8 flex items-center justify-center">
+        <div className="w-full h-[180px] bg-linear-to-r from-primary to-orange-500 mb-8 flex items-center justify-center">
           <h1 className="text-3xl text-white font-bold">收支明细公示</h1>
         </div>
 

@@ -33,10 +33,7 @@ export const NoticeBar: React.FC = () => {
       <div className="flex items-center h-[60px] md:h-[80px] px-2 py-2">
         {/* 1. Title Block */}
         <div
-          className="w-[100px] md:w-[160px] h-[50px] md:h-[60px] bg-no-repeat bg-center bg-contain text-white font-bold text-sm md:text-lg leading-[50px] md:leading-[60px] text-center mr-3 md:mr-5 shrink-0"
-          style={{
-            backgroundImage: "url('https://www.xascsh.com/static/default/static/images/ggBtg.png')",
-          }}
+          className="w-[100px] md:w-[160px] h-[50px] md:h-[60px] bg-primary text-white font-bold text-sm md:text-lg leading-[50px] md:leading-[60px] text-center mr-3 md:mr-5 shrink-0 rounded-lg shadow-sm"
         >
           总会公告
         </div>

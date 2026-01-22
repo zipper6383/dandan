@@ -160,6 +160,15 @@ export interface PaginatedResponse<T> {
   totalPages: number;
 }
 
+export interface Notice {
+  id: string;
+  title?: string;
+  content?: string;
+  date?: string;
+  link?: string;
+  icon?: string;
+}
+
 export interface SiteConfig {
   header: {
     title: string;
@@ -174,13 +183,13 @@ export interface SiteConfig {
     phone?: string;
     email?: string;
     address?: string;
-    techSupport?: string;
   };
   baseStats: {
     raised: number;
     donors: number;
     projects: number;
     volunteers: number;
+    distributed?: number;
   };
   banners: string[]; // Home page banners
   notices: Notice[];

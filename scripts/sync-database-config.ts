@@ -8,31 +8,31 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: join(__dirname, '../.env') });
 
 const UPDATED_CONFIG = {
-    headerImage: "/images/changan.png",
-    projectsBanner: "/images/changan.png",
+    headerImage: "/logo.png",
+    projectsBanner: "/logo.png",
     banners: [
         "https://res-img.n.gongyibao.cn/uploads/1dbdc970-d95e-45a8-859b-86e4e9abe89e/20240506/96b897d2aff44edbb2441f5de3146b68.jpg",
-        "/images/changan.png",
+        "/logo.png",
         "https://picsum.photos/1200/400?random=102"
     ],
     notices: [
-        { id: '1', content: '长安仁爱慈善基金会郑重声明：谨防诈骗', link: '/news/1', icon: '📢' },
-        { id: '2', content: '热烈庆祝长安仁爱慈善基金会持续运营超过25周年', link: '/about', icon: '📢' },
-        { id: '3', content: '慈善帮扶解难忧，锦旗回馈话初心', link: '/news/2', icon: '📢' }
+        { id: '1', content: '龙岗区善泽民工互助会郑重声明：谨防诈骗', link: '/news/1', icon: '📢' },
+        { id: '2', content: '热烈庆祝龙岗区善泽民工互助会持续运营超过8周年', link: '/about', icon: '📢' },
+        { id: '3', content: '互助帮扶解难忧，锦旗回馈话初心', link: '/news/2', icon: '📢' }
     ],
     footer: {
-        address: "陕西省西安市莲湖区长安文化遗产大厦五层",
-        phone: "029-86785588",
-        email: "contact@changanrenai.org.cn",
-        bankName: "中国银行西安高新支行",
-        bankAccount: "1234 5678 9012 3456",
-        bankUnit: "长安仁爱慈善基金会",
-        techSupport: "长安仁爱慈善基金会技术团队"
+        address: "中国广东省深圳市龙岗区 · 龙岗大道务工人员综合服务大厦",
+        phone: "0755 83942567",
+        email: "contact@shanze-longgang.org",
+        bankName: "中国建设银行深圳龙岗支行",
+        bankAccount: "6230 9183 7456 2109 852",
+        bankUnit: "龙岗区善泽民工互助会",
+        techSupport: "善泽互助会技术团队"
     },
     baseStats: {
-        raised: 542000000,
-        distributed: 300000000,
-        donors: 1250000,
+        raised: 233100000,
+        distributed: 205800000,
+        donors: 203469,
         projects: 500,
         volunteers: 8500
     },
@@ -44,12 +44,12 @@ const UPDATED_CONFIG = {
     },
     paymentMethods: {
         alipay: {
-            name: "长安仁爱慈善基金会",
+            name: "龙岗区善泽民工互助会",
             account: "请联系我们获取",
             icon: ""
         },
         wechat: {
-            name: "长安仁爱慈善基金会",
+            name: "龙岗区善泽民工互助会",
             account: "请联系我们获取",
             icon: ""
         }

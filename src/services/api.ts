@@ -1,3 +1,4 @@
+import { API_CONFIG } from '../constants';
 import type {
   DonationRecord,
   Fund,
@@ -20,7 +21,7 @@ export interface PaginatedResponse<T> {
   };
 }
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
+const API_BASE = API_CONFIG.BASE_URL;
 
 // Helper for fetch with error handling
 async function fetchAPI<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
@@ -35,13 +36,47 @@ async function fetchAPI<T>(endpoint: string, options: RequestInit = {}): Promise
     headers,
   };
 
-  const response = await fetch(`${API_BASE}${endpoint}`, config);
+  const url = endpoint.startsWith('http') ? endpoint : `${API_BASE}${endpoint}`;
+  const response = await fetch(url, config);
+  
   if (!response.ok) {
     const errorBody = await response.text();
     throw new Error(`API Error: ${response.status} ${response.statusText} - ${errorBody}`);
   }
   return response.json();
 }
+
+// =============================================
+// UPLOAD API
+// =============================================
+export const UploadAPI = {
+  async uploadImage(file: File): Promise<string> {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    // We use fetch directly here because we need to handle FormData differently
+    // and fetchAPI might try to set Content-Type to application/json if we standardized it there
+    // But actually fetchAPI is generic enough, let's try to use it but we need to ensure headers are correct.
+    // Fetch automatically sets Content-Type for FormData, so we shouldn't set it manually.
+    
+    const token = localStorage.getItem('authToken');
+    const headers: HeadersInit = token ? { Authorization: `Bearer ${token}` } : {};
+
+    const response = await fetch(`${API_CONFIG.UPLOAD_URL}`, {
+      method: 'POST',
+      headers,
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Upload failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.url;
+  }
+};
+
 
 // =============================================
 // PROJECTS API

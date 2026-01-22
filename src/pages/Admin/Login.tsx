@@ -5,7 +5,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import { SEO } from '../../components/Shared/SEO';
 
 const Login: React.FC = () => {
-  const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm();
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -30,7 +35,7 @@ const Login: React.FC = () => {
       <div className="bg-white p-8 rounded shadow-lg w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">管理后台登录</h1>
-          <p className="text-gray-500 text-sm">长安仁爱慈善基金会</p>
+          <p className="text-gray-500 text-sm">龙岗区善泽民工互助会</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -48,7 +53,9 @@ const Login: React.FC = () => {
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-primary"
               placeholder="admin"
             />
-            {errors.username && <p className="text-red-500 text-xs mt-1">{errors.username.message as string}</p>}
+            {errors.username && (
+              <p className="text-red-500 text-xs mt-1">{errors.username.message as string}</p>
+            )}
           </div>
 
           <div>
@@ -59,7 +66,9 @@ const Login: React.FC = () => {
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-primary"
               placeholder="123456"
             />
-            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message as string}</p>}
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1">{errors.password.message as string}</p>
+            )}
           </div>
 
           <button

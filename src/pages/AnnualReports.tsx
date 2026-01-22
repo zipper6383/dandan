@@ -7,8 +7,8 @@ const AnnualReports: React.FC = () => {
     {
       id: 1,
       year: 2024,
-      title: '2024年度工作报告',
-      summary: '2024年，基金会共开展慈善项目32个，受益人数超过10万人次，募集善款2800万元。',
+      title: '龙岗区善泽民工互助会2024年度工作报告',
+      summary: '2024年，互助会共开展慈善项目32个，受益人数超过10万人次，募集善款2800万元。',
       coverImage: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800',
       fileUrl: '#',
       fileSize: '5.2 MB',
@@ -17,8 +17,8 @@ const AnnualReports: React.FC = () => {
     {
       id: 2,
       year: 2023,
-      title: '2023年度工作报告',
-      summary: '2023年，基金会共开展慈善项目28个，受益人数超过8万人次，募集善款2400万元。',
+      title: '龙岗区善泽民工互助会2023年度工作报告',
+      summary: '2023年，互助会共开展慈善项目28个，受益人数超过8万人次，募集善款2400万元。',
       coverImage: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800',
       fileUrl: '#',
       fileSize: '4.8 MB',
@@ -27,8 +27,8 @@ const AnnualReports: React.FC = () => {
     {
       id: 3,
       year: 2022,
-      title: '2022年度工作报告',
-      summary: '2022年，基金会共开展慈善项目25个，受益人数超过7万人次，募集善款2100万元。',
+      title: '龙岗区善泽民工互助会2022年度工作报告',
+      summary: '2022年，互助会共开展慈善项目25个，受益人数超过7万人次，募集善款2100万元。',
       coverImage: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800',
       fileUrl: '#',
       fileSize: '4.5 MB',
@@ -38,7 +38,7 @@ const AnnualReports: React.FC = () => {
 
   return (
     <div className="bg-bgBlock py-8 min-h-screen">
-      <SEO title="年度报告" description="长安仁爱慈善基金会年度工作报告" />
+      <SEO title="年度报告" description="龙岗区善泽民工互助会年度工作报告" />
 
       <div className="w-container mx-auto">
         <div className="bg-white p-8">

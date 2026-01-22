@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => {
       allowedHosts: true,
       port: 3000,
       host: '0.0.0.0',
+      hmr: {
+        port: 3000, // Use same port as dev server
+      },
       proxy: {
         '/api': {
           target: 'http://localhost:3001',
@@ -27,6 +30,7 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+      'process.env.NODE_ENV': JSON.stringify(mode),
     },
     resolve: {
       alias: {

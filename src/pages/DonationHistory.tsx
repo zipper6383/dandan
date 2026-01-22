@@ -110,17 +110,17 @@ const DonationHistory: React.FC = () => {
 
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-              <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
+              <div className="bg-linear-to-br from-red-50 to-red-100 p-6 rounded-lg">
                 <div className="text-sm text-red-600 mb-2">累计捐赠金额</div>
                 <div className="text-3xl font-bold text-red-700">
                   ￥{totalAmount.toLocaleString()}
                 </div>
               </div>
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+              <div className="bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
                 <div className="text-sm text-blue-600 mb-2">捐赠次数</div>
                 <div className="text-3xl font-bold text-blue-700">{userDonations.length}</div>
               </div>
-              <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+              <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-lg">
                 <div className="text-sm text-green-600 mb-2">帮助项目</div>
                 <div className="text-3xl font-bold text-green-700">
                   {new Set(userDonations.map((d) => d.projectTitle)).size}

@@ -1,6 +1,7 @@
 import { Edit, Plus, Search, Trash2, X } from 'lucide-react';
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
+import { ImageUpload } from '../../components/Shared/ImageUpload';
 import { SEO } from '../../components/Shared/SEO';
 import { useData } from '../../contexts/DataContext';
 import { NewsItem } from '../../types';
@@ -13,6 +14,7 @@ const NewsManager: React.FC = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     setValue,
@@ -36,7 +38,7 @@ const NewsManager: React.FC = () => {
         date: new Date().toISOString().split('T')[0],
         summary: '',
         content: '',
-        source: '长安慈善会',
+        source: '龙岗区善泽民工互助会',
         category: 'charity', // default
         image: 'https://picsum.photos/800/600?random=' + Math.floor(Math.random() * 100),
       });
@@ -230,11 +232,13 @@ const NewsManager: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-1">封面图片 URL</label>
-                <input
-                  {...register('image')}
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-primary"
-                  placeholder="https://..."
+                <label className="block text-sm font-bold text-gray-700 mb-1">封面图片</label>
+                <Controller
+                  control={control}
+                  name="image"
+                  render={({ field }) => (
+                    <ImageUpload value={field.value} onChange={field.onChange} />
+                  )}
                 />
               </div>
 

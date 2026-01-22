@@ -8,37 +8,33 @@ export const getNews = async (req: Request, res: Response) => {
     const offset = (page - 1) * limit;
     const category = req.query.category as string;
 
-    // Build query with optional category filter
-    let countQuery = 'SELECT COUNT(*) FROM news';
-    let dataQuery = `
+    const queryParams: any[] = [];
+    let whereClause = '';
+
+    if (category) {
+      whereClause = ' WHERE n.category_id = (SELECT id FROM categories WHERE slug = $1)';
+      queryParams.push(category);
+    }
+
+    // Get total count
+    const countQuery = `SELECT COUNT(*) FROM news n ${whereClause}`;
+    const countResult = await pool.query(countQuery, queryParams);
+    const total = parseInt(countResult.rows[0].count);
+
+    // Get paginated data
+    const dataQuery = `
       SELECT
         n.id, n.title, c.name as "category", n.summary, n.content,
         n.image_url as "image", n.author as "source", n.published_at as "date", n.views,
         n.category_id as "categoryId"
       FROM news n
       LEFT JOIN categories c ON n.category_id = c.id
+      ${whereClause}
+      ORDER BY n.published_at DESC
+      LIMIT $${queryParams.length + 1} OFFSET $${queryParams.length + 2}
     `;
 
-    const queryParams: any[] = [];
-    if (category) {
-      countQuery += ' WHERE category_id = (SELECT id FROM categories WHERE slug = $1)';
-      dataQuery += ' WHERE n.category_id = (SELECT id FROM categories WHERE slug = $1)';
-      queryParams.push(category);
-    }
-
-    dataQuery +=
-      ' ORDER BY n.published_at DESC LIMIT $' +
-      (queryParams.length + 1) +
-      ' OFFSET $' +
-      (queryParams.length + 2);
-    queryParams.push(limit, offset);
-
-    // Get total count
-    const countResult = await pool.query(countQuery, category ? [category] : []);
-    const total = parseInt(countResult.rows[0].count);
-
-    // Get paginated data
-    const result = await pool.query(dataQuery, queryParams);
+    const result = await pool.query(dataQuery, [...queryParams, limit, offset]);
 
     res.json({
       data: result.rows,

@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
                 （综合办公室）
               </p>
               <p>
-                <span className="text-primary font-bold">项目咨询:</span> 029-86785599
+                <span className="text-primary font-bold">项目咨询:</span> 0755 83942567
                 （项目与救助部）
               </p>
               <p className="text-xs text-textLight mt-2">备注：请注明捐款用途及项目名称</p>
@@ -38,17 +38,11 @@ const Footer: React.FC = () => {
 
           {/* Contact Info */}
           <div className="flex-[2] text-sm leading-7">
-            <h3 className="font-bold text-lg mb-2 text-textMain">长安仁爱慈善基金会</h3>
+            <h3 className="font-bold text-lg mb-2 text-textMain">龙岗区善泽民工互助会</h3>
             <p>地址：{footer.address}</p>
             <p>电话：{footer.phone}</p>
             <p>邮箱：{footer.email}</p>
-            <p>邮编：710000</p>
-            <p className="mt-4">
-              <a href="#" className="hover:text-primary transition-colors">
-                陕ICP备19024568号-1
-              </a>
-            </p>
-            <p>技术支持：{footer.techSupport}</p>
+            <p>邮编：518100</p>
           </div>
         </div>
       </div>

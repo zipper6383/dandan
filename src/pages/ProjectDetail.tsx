@@ -120,7 +120,7 @@ const ProjectDetail: React.FC = () => {
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
                   <div
-                    className="bg-gradient-to-r from-accent to-yellow-500 h-full rounded-full transition-all duration-1000"
+                    className="bg-linear-to-r from-accent to-yellow-500 h-full rounded-full transition-all duration-1000"
                     style={{ width: `${percent}%` }}
                   ></div>
                 </div>
@@ -198,7 +198,7 @@ const ProjectDetail: React.FC = () => {
                 温馨提示：
               </h4>
               <p className="opacity-90">
-                长安仁爱慈善基金会承诺：您的每一笔捐款都将用于该公益项目，我们将定期公示项目进展和资金使用情况。若项目执行完毕后仍有剩余善款，将用于同类其他慈善项目。
+                龙岗区善泽民工互助会承诺：您的每一笔捐款都将用于该公益项目，我们将定期公示项目进展和资金使用情况。若项目执行完毕后仍有剩余善款，将用于同类其他慈善项目。
               </p>
             </div>
           </div>

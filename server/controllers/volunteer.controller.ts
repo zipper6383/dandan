@@ -6,7 +6,7 @@ export const getVolunteers = async (req: Request, res: Response) => {
     const result = await pool.query(`
       SELECT
         id, name, phone, email, skills as "interest", status,
-        '西安' as "area", joined_at as "date"
+        '深圳' as "area", joined_at as "date"
       FROM volunteers
       ORDER BY joined_at DESC
     `);
@@ -35,7 +35,7 @@ export const createVolunteer = async (req: Request, res: Response) => {
       `
           SELECT
             id, name, phone, email, skills as "interest", status,
-            '西安' as "area", joined_at as "date"
+            '深圳' as "area", joined_at as "date"
           FROM volunteers
           WHERE id = $1
         `,
@@ -68,7 +68,7 @@ export const updateVolunteerStatus = async (req: Request, res: Response) => {
       `
           SELECT
             id, name, phone, email, skills as "interest", status,
-            '西安' as "area", joined_at as "date"
+            '深圳' as "area", joined_at as "date"
           FROM volunteers
           WHERE id = $1
         `,

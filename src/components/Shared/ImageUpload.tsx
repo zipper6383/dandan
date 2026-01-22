@@ -2,7 +2,8 @@ import { Loader, Upload, X } from 'lucide-react';
 import React, { useState } from 'react';
 
 // Constants
-import { API_CONFIG, ERROR_MESSAGES, UPLOAD_LIMITS } from '../../constants';
+import { ERROR_MESSAGES, UPLOAD_LIMITS } from '../../constants';
+import { UploadAPI } from '../../services/api';
 
 interface ImageUploadProps {
   value?: string;
@@ -40,25 +41,9 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange, class
     setIsUploading(true);
     setError(null);
 
-    const formData = new FormData();
-    formData.append('file', file);
-
     try {
-      const response = await fetch(API_CONFIG.UPLOAD_URL, {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error(`Upload failed: ${response.status}`);
-      }
-
-      const data = await response.json();
-      if (data.url) {
-        // If it returns a full URL (cloud storage), use it.
-        // If it returns a relative path (/uploads/...), use it directly (Vite proxy handles it).
-        onChange(data.url);
-      }
+      const url = await UploadAPI.uploadImage(file);
+      onChange(url);
     } catch (err) {
       console.error('Upload error:', err);
       setError(ERROR_MESSAGES.UPLOAD_FAILED);

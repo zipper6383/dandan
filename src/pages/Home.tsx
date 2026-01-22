@@ -9,6 +9,7 @@ import { NoticeBar } from '../components/Home/NoticeBar';
 import { StatsGrid } from '../components/Home/StatsGrid';
 import { DonationTable } from '../components/Home/DonationTable';
 import { useCategories } from '../hooks/useCategories';
+import { formatCurrency } from '../utils/format';
 
 const Home: React.FC = () => {
   const {
@@ -20,31 +21,19 @@ const Home: React.FC = () => {
     error,
     refreshData,
   } = useData();
-  const { categories: newsCategories } = useCategories('news');
-  const [activeNewsTab, setActiveNewsTab] = useState<string>('');
 
-  // Set default tab when categories load
-  React.useEffect(() => {
-    if (newsCategories.length > 0 && !activeNewsTab) {
-      setActiveNewsTab(newsCategories[0].slug);
-    }
-  }, [newsCategories, activeNewsTab]);
+  const displayNews = React.useMemo(() => {
+    return NEWS.slice(0, 5);
+  }, [NEWS]);
 
   if (loading) return <Loading />;
   if (error) return <ErrorMessage message={error} onRetry={refreshData} />;
-
-  const getFilteredNews = () => {
-    return NEWS.filter((n) => n.category === activeNewsTab);
-  };
-
-  const displayNews =
-    getFilteredNews().length > 0 ? getFilteredNews().slice(0, 3) : NEWS.slice(0, 3);
 
   return (
     <div className="bg-bgBlock pb-10">
       <SEO
         title="首页"
-        description="长安仁爱慈善基金会官方门户网站，提供慈善项目捐赠、信息公开、新闻资讯等服务。"
+        description="龙岗区善泽民工互助会官方门户网站，提供务工人员权益保障、职业伤害救助、技能提升等服务。"
       />
 
       {/* Hero Slider Area */}
@@ -56,25 +45,8 @@ const Home: React.FC = () => {
         <div className="flex flex-col md:flex-row gap-6 md:gap-8 pb-6">
           {/* Left Column: News Tabs */}
           <div className="flex-1 md:flex-[2]">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-borderGray mb-4 md:mb-6 gap-2">
-              <h2 className="text-base md:text-lg font-bold text-textMain pb-2 border-b-2 border-primary">
-                慈善新闻
-              </h2>
-              <div className="flex gap-2 md:gap-4 flex-wrap">
-                {newsCategories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onMouseEnter={() => setActiveNewsTab(cat.slug)}
-                    className={`px-3 md:px-4 py-1 rounded-full text-xs md:text-sm transition-all ${activeNewsTab === cat.slug ? 'bg-primary text-white shadow-md' : 'bg-white text-textSub hover:bg-gray-100'}`}
-                  >
-                    {cat.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
             <div className="grid grid-cols-1 gap-4 md:gap-6 min-h-[300px]">
-              {displayNews.length > 0 ? (
+              {displayNews.length > 0 &&
                 displayNews.map((news) => (
                   <div key={news.id} className="flex gap-3 md:gap-4 group cursor-pointer">
                     <div className="w-32 h-24 sm:w-40 sm:h-28 md:w-48 md:h-32 shrink-0 overflow-hidden rounded relative">
@@ -97,14 +69,11 @@ const Home: React.FC = () => {
                       </span>
                     </div>
                   </div>
-                ))
-              ) : (
-                <div className="text-textLight py-10 text-center">暂无相关新闻</div>
-              )}
+                ))}
             </div>
             <div className="mt-4 text-right">
               <Link
-                to={`/news/${activeNewsTab}`}
+                to={`/news`}
                 className="text-xs md:text-sm text-linkRed hover:text-hoverRed hover:underline flex items-center justify-end gap-1"
               >
                 查看更多 <span className="text-xs">▶</span>
@@ -144,7 +113,7 @@ const Home: React.FC = () => {
                     <span>
                       已筹:{' '}
                       <span className="text-accent font-bold">
-                        ￥{project.raised.toLocaleString()}
+                        {formatCurrency(project.raised)}
                       </span>
                     </span>
                     <Link
@@ -184,14 +153,12 @@ const Home: React.FC = () => {
                 <div className="text-xs text-textSub mb-2 grid grid-cols-2 gap-2">
                   <p>
                     已筹金额：
-                    <span className="text-accent font-bold">￥{proj.raised.toLocaleString()}</span>
+                    <span className="text-accent font-bold">{formatCurrency(proj.raised)}</span>
                   </p>
                   <p>爱心人次：{proj.donors}</p>
                   <p className="col-span-2">
                     目标：
-                    {typeof proj.target === 'number'
-                      ? `￥${proj.target.toLocaleString()}`
-                      : proj.target}
+                    {typeof proj.target === 'number' ? formatCurrency(proj.target) : proj.target}
                   </p>
                 </div>
                 <div className="flex justify-between items-center mt-4">
@@ -243,7 +210,7 @@ const Home: React.FC = () => {
                   <p className="truncate">冠名人: {fund.sponsor}</p>
                   <p>
                     已捐善款:{' '}
-                    <span className="text-accent font-bold">￥{fund.raised.toLocaleString()}</span>
+                    <span className="text-accent font-bold">{formatCurrency(fund.raised)}</span>
                   </p>
                 </div>
                 <Link
