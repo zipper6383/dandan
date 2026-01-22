@@ -69,17 +69,21 @@ app.use('/api/search', searchRoutes);
 app.use('/api/statistics', statisticsRoutes);
 
 // Start Server
-const server = app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const server = app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+  });
 
-server.on('error', (e: any) => {
-  if (e.code === 'EADDRINUSE') {
-    console.error(
-      `Port ${port} is already in use. Please free up the port or use a different one.`
-    );
-    process.exit(1);
-  } else {
-    console.error(e);
-  }
-});
+  server.on('error', (e: any) => {
+    if (e.code === 'EADDRINUSE') {
+      console.error(
+        `Port ${port} is already in use. Please free up the port or use a different one.`
+      );
+      process.exit(1);
+    } else {
+      console.error(e);
+    }
+  });
+}
+
+export default app;
