@@ -8,6 +8,7 @@ import { HomeBanner } from '../components/Home/HomeBanner';
 import { NoticeBar } from '../components/Home/NoticeBar';
 import { StatsGrid } from '../components/Home/StatsGrid';
 import { DonationTable } from '../components/Home/DonationTable';
+import { DonationMethods } from '../components/Home/DonationMethods';
 import { useCategories } from '../hooks/useCategories';
 import { formatCurrency } from '../utils/format';
 
@@ -223,9 +224,17 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Donation Methods Section */}
-        <div className="mt-8">
-          <DonationTable donations={DONATIONS} />
+        {/* Donation Section Grid */}
+        <div className="mt-8 md:mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Donation Table - Takes 2/3 width */}
+          <div className="lg:col-span-2">
+            <DonationTable donations={DONATIONS} />
+          </div>
+
+          {/* Donation Methods - Takes 1/3 width */}
+          <div className="lg:col-span-1">
+            <DonationMethods />
+          </div>
         </div>
       </div>
     </div>

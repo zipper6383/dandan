@@ -9,7 +9,7 @@ interface DonationTableProps {
 export const DonationTable: React.FC<DonationTableProps> = ({ donations = [] }) => {
   const safeDonations = Array.isArray(donations) ? donations : [];
   return (
-    <div className="mt-12 bg-white border border-gray-200 rounded">
+    <div className="bg-white border border-gray-200 rounded h-full">
       <div className="bg-[#fbfbfb] p-3 border-b border-gray-200 flex justify-between items-center rounded-t">
         <span className="font-bold text-gray-700">最新捐赠信息</span>
         <Link to="/info/transactions" className="text-xs text-gray-500 hover:text-primary">
