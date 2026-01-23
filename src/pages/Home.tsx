@@ -215,16 +215,18 @@ const Home: React.FC = () => {
                 </div>
                 <Link
                   to={`/funds/${fund.id}`}
-                  className="w-full mt-2 md:mt-3 bg-white border border-primary text-primary text-xs md:text-sm py-1 hover:bg-primary hover:text-white transition-colors rounded-sm block text-center"
-                >
-                  立即捐款
-                </Link>
+                  className="absolute inset-0 z-10"
+                  aria-label={`View details for ${fund.title}`}
+                ></Link>
               </div>
             ))}
           </div>
         </div>
 
-        <DonationTable donations={DONATIONS} />
+        {/* Donation Methods Section */}
+        <div className="mt-8">
+          <DonationTable />
+        </div>
       </div>
     </div>
   );
