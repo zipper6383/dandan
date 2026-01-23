@@ -225,7 +225,7 @@ const Home: React.FC = () => {
 
         {/* Donation Methods Section */}
         <div className="mt-8">
-          <DonationTable />
+          <DonationTable donations={DONATIONS} />
         </div>
       </div>
     </div>
